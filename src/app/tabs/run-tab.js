@@ -342,7 +342,7 @@ function contractDropdown (events, appAPI, appEvents, opts, instanceContainer) {
     contractNames.innerHTML = ''
     if (success) {
       selectContractNames.removeAttribute('disabled')
-      appAPI.visitContracts((contract) => {
+      opts.compiler.visitContracts((contract) => {
         contractNames.appendChild(yo`<option>${contract.name}</option>`)
       })
     } else {
