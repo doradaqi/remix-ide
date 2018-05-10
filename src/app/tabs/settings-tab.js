@@ -27,10 +27,10 @@ function SettingsTab (appAPI = {}, appEvents = {}, opts = {}) {
 
    // Gist settings
   var gistAccessToken = yo`<input id="gistaccesstoken" type="password">`
-  var token = appAPI.config.get('settings/gist-access-token')
+  var token = opts.config.get('settings/gist-access-token')
   if (token) gistAccessToken.value = token
-  var gistAddToken = yo`<input class="${css.savegisttoken}" id="savegisttoken" onclick=${() => { appAPI.config.set('settings/gist-access-token', gistAccessToken.value); tooltip('Access token saved') }} value="Save" type="button">`
-  var gistRemoveToken = yo`<input id="removegisttoken" onclick=${() => { gistAccessToken.value = ''; appAPI.config.set('settings/gist-access-token', ''); tooltip('Access token removed') }} value="Remove" type="button">`
+  var gistAddToken = yo`<input class="${css.savegisttoken}" id="savegisttoken" onclick=${() => { opts.config.set('settings/gist-access-token', gistAccessToken.value); tooltip('Access token saved') }} value="Save" type="button">`
+  var gistRemoveToken = yo`<input id="removegisttoken" onclick=${() => { gistAccessToken.value = ''; opts.config.set('settings/gist-access-token', ''); tooltip('Access token removed') }} value="Remove" type="button">`
 
   var el = yo`
     <div class="${css.settingsTabView} "id="settingsView">
@@ -66,7 +66,7 @@ function SettingsTab (appAPI = {}, appEvents = {}, opts = {}) {
         <div class="${css.crowNoFlex}">Go to github token page (link below) to create a new token and save it in Remix. Make sure this token has only 'create gist' permission.</div>
         <div class="${css.crowNoFlex}"><a target="_blank" href="https://github.com/settings/tokens">https://github.com/settings/tokens</a></div>
         <div class="${css.crowNoFlex}">
-          <div class="${css.checkboxText}">${gistAccessToken}${copyToClipboard(() => appAPI.config.get('settings/gist-access-token'))}${gistAddToken}${gistRemoveToken}</div>
+          <div class="${css.checkboxText}">${gistAccessToken}${copyToClipboard(() => opts.config.get('settings/gist-access-token'))}${gistAddToken}${gistRemoveToken}</div>
         </div>
       </div>
       <div class="${css.info}">
