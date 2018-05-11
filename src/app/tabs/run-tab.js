@@ -38,7 +38,7 @@ function runTab (appAPI = {}, appEvents = {}, opts = {}) {
   self._view.instanceContainer = yo`<div class="${css.instanceContainer}"></div>`
   self._view.clearInstanceElement = yo`
     <i class="${css.clearinstance} ${css.icon} fa fa-trash" onclick=${() => clearInstanceList(self)}
-    title="Clear instances list and reset recorder" aria-hidden="true">
+    title="Clear list and reset recorder" aria-hidden="true">
   </i>`
   self._view.instanceContainerTitle = yo`
     <div class=${css.instanceContainerTitle}
@@ -80,10 +80,10 @@ function runTab (appAPI = {}, appEvents = {}, opts = {}) {
   recorderCard.event.register('expandCollapseCard', (arrow, body, status) => {
     body.innerHTML = ''
     status.innerHTML = ''
-    if (arrow === 'up') {
+    if (arrow === 'down') {
       status.appendChild(self._view.collapsedView)
       body.appendChild(self._view.expandedView)
-    } else if (arrow === 'down') {
+    } else if (arrow === 'up') {
       status.appendChild(self._view.collapsedView)
     }
   })
@@ -262,7 +262,12 @@ function makeRecorder (appAPI, appEvents, opts, self) {
             })
           }
         } else {
-          modalDialogCustom.alert('A Scenario File is required. The file must be of type JSON. Use the "Save Transactions" Button to generate a  new Scenario File.')
+          modalDialogCustom.alert(`
+            To replay transactions, you have to open a scenario.json file
+            with transactions you recorded before. After opening a scenario.json
+            file, you should change the account address in the file with your
+            current address. After all is set up, press "Run Transactions" button again.
+            If you haven't recorded any transactions yet, use the "Save Transactions" button.`)
         }
       }
     })

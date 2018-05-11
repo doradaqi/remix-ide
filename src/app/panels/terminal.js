@@ -111,7 +111,10 @@ class Terminal {
     self._view.dragbar = yo`
       <div onmousedown=${mousedown} class=${css.dragbarHorizontal}></div>`
     self._view.dropdown = self._components.dropdown.render()
-    self._view.pendingTxCount = yo`<div class=${css.pendingTx}>${self._view.pendingTxCount}</div>`
+    self._view.pendingTxCount = yo`
+      <div class=${css.pendingTx}>
+        ${self._view.pendingTxCount}
+      </div>`
     self._view.bar = yo`
       <div class=${css.bar}>
         ${self._view.dragbar}
@@ -584,6 +587,8 @@ function blockify (el) { return yo`<div class=${css.block}>${el}</div>` }
 function updatePendingTxs (api, el) {
   var count = Object.keys(api.udapp().pendingTransactions()).length
   el.innerText = count
+  var titleText = count === 1 ? `${count} pending transaction` : `${count} pending transactions`
+  el.setAttribute('title', titleText)
 }
 
 module.exports = Terminal
